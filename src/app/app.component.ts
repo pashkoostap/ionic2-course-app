@@ -3,7 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { MyTeamsPage } from '../pages/';
+import { MyTeamsPage, TournamentsPage } from '../pages/';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,9 +13,11 @@ export class MyApp {
 
   rootPage: any = MyTeamsPage;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen) {
     this.initializeApp();
-
   }
 
   initializeApp() {
@@ -25,7 +27,11 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    this.nav.setRoot(page.component);
+  goHome() {
+    this.nav.push(MyTeamsPage);
+  }
+
+  goToTournaments() {
+    this.nav.push(TournamentsPage);
   }
 }
