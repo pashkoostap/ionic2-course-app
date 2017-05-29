@@ -6,14 +6,8 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item (click)="itemTapped()">
-      Tournament 1
-    </button>
-    <button ion-item (click)="itemTapped()">
-      Tournament 2
-    </button>
-    <button ion-item (click)="itemTapped()">
-      Tournament 3
+    <button ion-item (click)="itemTapped($event, item)" *ngFor="let item of tournaments">
+      {{item.name}}
     </button>
   </ion-list>
 </ion-content>
