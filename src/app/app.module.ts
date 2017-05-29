@@ -7,6 +7,7 @@ import { GamePage, MyTeamsPage, TeamDetailPage, TeamsPage, TournamentsPage, Team
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ApiService } from "../shared/";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    ApiService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
