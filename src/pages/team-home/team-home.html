@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Team home</ion-title>
+    <ion-title>{{team.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -8,10 +13,12 @@
   <ion-tab 
     tabTitle="Team" 
     tabIcon="basketball"
+    [rootParams]="team"
     [root]="teamDetailTab"></ion-tab>
   <ion-tab 
     tabTitle="Standings" 
     tabIcon="podium"
+    [rootParams]="team"
     [root]="stanginsTab"></ion-tab>
 </ion-tabs>
 

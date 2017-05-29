@@ -28,7 +28,7 @@ export class MyApp {
   }
 
   goHome() {
-    this.nav.push(MyTeamsPage);
+    this.nav.popToRoot();
   }
 
   goToTournaments() {
