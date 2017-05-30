@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { GamePage } from '../';
 import { ApiService } from '../../shared';
 
 @IonicPage()
@@ -38,7 +39,6 @@ export class TeamDetailPage {
         homeAway: (isTeam1 ? 'vs. ' : 'at')
       }
     })
-    console.log(this.games)
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score) {
@@ -46,9 +46,14 @@ export class TeamDetailPage {
       let teamScore = (isTeam1 ? team1Score : team2Score);
       let opponentScore = (isTeam1 ? team2Score : team1Score);
       let winIndicator = teamScore > opponentScore ? 'W: ' : 'L: ';
-      return `${winIndicator+ teamScore}-${opponentScore}`;
+      return `${winIndicator + teamScore}-${opponentScore}`;
     } else {
       return '';
     }
+  }
+
+  gameSelect(e, selectedGame) {
+    let soursePage = this.tourneyData.games.filter(game => game.id == selectedGame.gameId)[0];
+    this.navCtrl.parent.parent.push(GamePage, soursePage);
   }
 }
