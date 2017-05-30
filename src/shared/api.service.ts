@@ -27,4 +27,8 @@ export class ApiService {
       return this.currentTourney;
     })
   }
+
+  getCurrentTourney() {
+    return this.currentTourney;
+  }
 }

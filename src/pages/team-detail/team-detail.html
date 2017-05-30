@@ -4,7 +4,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <p>Team id: {{team.id}}</p>
-  <p>Team name: {{team.name}}</p>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let game of games">{{game.opponent}}</ion-item>
+  </ion-list>
 </ion-content>
