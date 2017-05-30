@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ApiService } from '../../shared/';
 
 import { TeamHomePage } from '../';
@@ -16,14 +16,23 @@ export class TeamsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingController: LoadingController,
     private apiService: ApiService) { }
 
   ionViewDidLoad() {
     let selectedTourney = this.navParams.data;
-    console.log(selectedTourney)
-    this.apiService.getTournamentsData(selectedTourney.id).subscribe(data => {
-      this.teams = data.teams;
+
+    let loader = this.loadingController.create({
+      content: 'Pleas wait...'
     })
+
+    loader.present().then(() => {
+      this.apiService.getTournamentsData(selectedTourney.id).subscribe(data => {
+        this.teams = data.teams;
+        loader.dismiss();
+      })
+    })
+
   }
 
   itemTapped(event, team) {
