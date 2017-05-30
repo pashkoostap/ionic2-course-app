@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ApiService } from '../../shared/';
 
 import { TeamHomePage } from '../';
 
@@ -9,25 +10,23 @@ import { TeamHomePage } from '../';
   templateUrl: 'teams.html',
 })
 export class TeamsPage {
+  selectedTourney: any;
+  teams = []
 
-  teams = [
-    { id: 1, name: 'Team 1' },
-    { id: 2, name: 'Team 2' },
-    { id: 3, name: 'Team 3' },
-    { id: 4, name: 'Team 4' },
-    { id: 5, name: 'Team 5' },
-    { id: 6, name: 'Team 6' }
-  ]
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private apiService: ApiService) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamsPage');
+    let selectedTourney = this.navParams.data;
+    console.log(selectedTourney)
+    this.apiService.getTournamentsData(selectedTourney.id).subscribe(data => {
+      this.teams = data.teams;
+    })
   }
 
   itemTapped(event, team) {
     this.navCtrl.push(TeamHomePage, team);
   }
-
 }
