@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ApiService } from '../../shared/';
 
 import { TeamHomePage } from '../';
+import * as _ from 'lodash';
 
 @IonicPage()
 @Component({
@@ -10,9 +11,9 @@ import { TeamHomePage } from '../';
   templateUrl: 'teams.html',
 })
 export class TeamsPage {
-  selectedTourney: any;
-  teams = []
-
+  private allTeams: any;
+  private allTeamsDivisions: any;
+  public teams: Array<any> = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,12 +24,20 @@ export class TeamsPage {
     let selectedTourney = this.navParams.data;
 
     let loader = this.loadingController.create({
-      content: 'Pleas wait...'
+      content: 'Please wait...'
     })
 
     loader.present().then(() => {
       this.apiService.getTournamentsData(selectedTourney.id).subscribe(data => {
+        this.allTeams = data.teams;
         this.teams = data.teams;
+        this.allTeamsDivisions =
+          _.chain(data.teams)
+            .groupBy('division')
+            .toPairs()
+            .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
+            .value();
+        this.teams = this.allTeamsDivisions;
         loader.dismiss();
       })
     })
