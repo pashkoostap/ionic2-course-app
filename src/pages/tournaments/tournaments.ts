@@ -23,7 +23,7 @@ export class TournamentsPage {
 
   ionViewDidLoad() {
     let loader = this.loadingController.create({
-      content: 'Pleas wait...',
+      content: 'Please wait...',
       spinner: 'dots'
     })
 

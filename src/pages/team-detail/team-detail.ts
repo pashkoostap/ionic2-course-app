@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import * as _ from 'lodash';
 
 import { GamePage } from '../';
 import { ApiService } from '../../shared';
@@ -12,6 +13,7 @@ import { ApiService } from '../../shared';
 export class TeamDetailPage {
   games: any[];
   team: any;
+  teamStanding: any;
   private tourneyData: any;
 
   constructor(
@@ -28,7 +30,7 @@ export class TeamDetailPage {
     }).map(game => {
       let isTeam1 = (game.team1Id == this.team.id);
       let opponentName = isTeam1 ? game.team2 : game.team1;
-      let scoreDisplay = this.getScoreDisplay(isTeam1, game.team1Scrore, game.team2Score);
+      let scoreDisplay = this.getScoreDisplay(isTeam1, game.team1Score, game.team2Score);
       return {
         gameId: game.id,
         opponent: opponentName,
@@ -39,6 +41,7 @@ export class TeamDetailPage {
         homeAway: (isTeam1 ? 'vs. ' : 'at')
       }
     })
+    this.teamStanding = _.find(this.tourneyData.standings, { 'teamId': this.team.id });
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score) {
